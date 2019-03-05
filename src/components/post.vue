@@ -14,14 +14,19 @@
         </div>
       </div>
       <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-        <a class="has-link-black-ter" v-if="index" :href="'/' + post.path">
+        <router-link
+          class="has-link-black-ter"
+          v-if="index"
+          :to="{ name: 'post', params: { id: post.id } }"
+        >
           {{ post.title }}
-        </a>
+        </router-link>
         <span v-else>{{ post.title }}</span>
       </h1>
       <div class="content is-excerpt" v-if="index">
         {{ getExcerpt(post.body) }}
       </div>
+      <div class="content" v-else v-html="getMarkdown(post.body)"></div>
       <div
         class="level is-size-7 is-uppercase"
         v-if="!index && post.labels.length > 0"
@@ -34,8 +39,8 @@
               v-for="tag in post.labels"
               :key="tag.id"
               href="/hexo-theme-icarus/tags/Getting-Started/"
-              >{{ tag.name }}</a
-            >
+              >{{ tag.name }}
+            </a>
           </div>
         </div>
       </div>
@@ -51,8 +56,21 @@
 </template>
 
 <script>
-// import marked from 'marked'
+import marked from 'marked'
+// import pygmentize from 'pygmentize-bundled'
+import highlight from 'highlight.js'
 const regex = /[\u3400-\u4DB5\u4E00-\u9FEA\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29\u{20000}-\u{2A6D6}\u{2A700}-\u{2B734}\u{2B740}-\u{2B81D}\u{2B820}-\u{2CEA1}\u{2CEB0}-\u{2EBE0}]/giu
+
+marked.setOptions({
+  highlight: function(code, lang, callback) {
+    // console.log('marked ok.', lang)
+    return highlight.highlightAuto(code).value
+    // pygmentize({ lang: lang, format: 'html' }, code, function(err, result) {
+    //   callback(err, result.toString())
+    // })
+  }
+})
+
 export default {
   props: {
     index: {
@@ -62,7 +80,7 @@ export default {
     post: {
       type: Object,
       default: () => ({
-        layout: 'page',
+        body: '',
         tags: []
       })
     },
@@ -73,12 +91,16 @@ export default {
   },
   methods: {
     getExcerpt(content) {
+      if (!content) return ''
       const match = content.match(regex)
       // console.log(match.length)
       return match.splice(0, 200).join('')
       // const div = document.createElement('div')
       // div.innerHTML = marked(content)
       // return div.innerText
+    },
+    getMarkdown(content) {
+      return content ? marked(content) : ''
     }
   }
 }

@@ -29,9 +29,6 @@
 </template>
 
 <script>
-import { getAllPosts } from './api/post'
-import { getArchivesByPost, flatObjectByKeys } from './utils/index'
-
 import { mapGetters } from 'vuex'
 
 import Profile from './components/profile'
@@ -58,40 +55,7 @@ export default {
   computed: {
     ...mapGetters(['author', 'archives', 'tags', 'posts'])
   },
-  mounted() {
-    getAllPosts().then(res => {
-      const _tags = {}
-      const posts = res.map(post => {
-        return {
-          title: post.title,
-          id: post.number,
-          labels: post.labels.map(label => {
-            if (!_tags[label.name]) {
-              _tags[label.name] = {
-                name: label.name,
-                color: `#${label.color}`,
-                count: 0
-              }
-            }
-            _tags[label.name].count += 1
-            return {
-              name: label.name,
-              color: `#${label.color}`
-            }
-          }),
-          created_at: post.created_at,
-          body: post.body
-        }
-      })
-
-      const tags = flatObjectByKeys(_tags)
-      const archives = getArchivesByPost(posts)
-
-      this.$store.dispatch('setPosts', posts)
-      this.$store.dispatch('setTags', tags)
-      this.$store.dispatch('setArchives', archives)
-    })
-  }
+  mounted() {}
 }
 </script>
 

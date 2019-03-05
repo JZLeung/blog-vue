@@ -22,10 +22,12 @@ const state = {
   },
   posts: [],
   tags: [],
-  archives: []
+  archives: [],
+  init: false
 }
 
 const getters = {
+  init: state => state.init,
   author: state => state.author,
   posts: state => state.posts,
   tags: state => state.tags,
@@ -44,6 +46,9 @@ const mutations = {
   },
   ['SET_ARCHIVES'](state, payloay) {
     state.archives = payloay
+  },
+  ['INIT_APP'](state) {
+    state.init = true
   }
 }
 
@@ -59,6 +64,9 @@ const actions = {
   },
   setArchives({ commit }, payloay) {
     commit('SET_ARCHIVES', payloay)
+  },
+  initApp({ commit }) {
+    commit('INIT_APP')
   }
 }
 

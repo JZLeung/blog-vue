@@ -11,7 +11,9 @@
     "axios": "0.18.0",
     "bulma": "0.7.4",
     "dayjs": "1.8.8",
+    "highlight.js": "9.15.6",
     "marked": "0.6.1",
+    "pygmentize-bundled": "2.3.0",
     "vue": "^2.5.22",
     "vue-router": "3.0.2",
     "vuex": "3.1.0"

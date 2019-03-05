@@ -2,9 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import store from '../store/index'
-import { getAuthorInfo } from '../api/user'
+import { initApp } from '../utils/index'
 
 import IndexPage from '../views/index.vue'
+import PostPage from '../views/post.vue'
 
 Vue.use(VueRouter)
 
@@ -12,6 +13,16 @@ export const routes = [
   {
     path: '/',
     component: IndexPage
+  },
+  {
+    path: '/post/:id',
+    component: PostPage,
+    props: true,
+    name: 'post'
+  },
+  {
+    path: '*',
+    redirect: '/'
   }
 ]
 
@@ -20,12 +31,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!store.getters.author.login) {
-    getAuthorInfo().then(author => {
-      // console.log(author)
-      store.dispatch('setAuthor', author)
-      next()
-    })
+  if (!store.getters.init) {
+    initApp().then(() => next())
   } else {
     next()
   }
