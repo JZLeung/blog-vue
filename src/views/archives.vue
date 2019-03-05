@@ -1,6 +1,6 @@
 <template>
   <div class="archives-page">
-    {{ dateline }} <Archive :time="dateline" :posts="posts"></Archive>
+    <Archive :time="dateline" :posts="posts"></Archive>
   </div>
 </template>
 <script>
