@@ -7,11 +7,20 @@ import { getAuthorInfo } from '../api/user'
 export const flatObjectByKeys = obj => Object.keys(obj).map(key => obj[key])
 export const getArchivesByPost = posts => {
   const datelines = posts.reduce((all, post) => {
-    const created_at = dayjs(post.created_at).format('YYYY-MM-DD')
+    const date = dayjs(post.created_at)
+    const created_at = date.format('YYYY-MM')
     if (!all[created_at]) {
+      const [year, month] = created_at.split('-')
       all[created_at] = {
         name: created_at,
-        tag: 0
+        tag: 0,
+        to: {
+          name: 'archives',
+          params: {
+            year,
+            month
+          }
+        }
       }
     }
     all[created_at].tag += 1
@@ -49,6 +58,7 @@ export const initApp = () => {
             }
           }),
           created_at: post.created_at,
+          dateline: dayjs(post.created_at).format('YYYY-MM'),
           body: post.body
         }
       })

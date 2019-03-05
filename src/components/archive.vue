@@ -1,21 +1,21 @@
 <template>
   <div class="card widget">
     <div class="card-content">
-      <h3 class="tag is-link">{{ formatDate(time) }}</h3>
+      <h3 class="tag is-link">{{ time | formatDate('YYYY-MM') }}</h3>
       <div class="timeline">
         <article class="media" v-for="post in posts" :key="post.id">
           <div class="media-content">
             <div class="content">
               <time
                 class="has-text-grey is-size-7 is-block is-uppercase"
-                :datetime="formatDate(post.date)"
-                >{{ formatDate(post.created_at) }}</time
+                :datetime="post.date | formatDate"
+                >{{ post.created_at | formatDate }}</time
               >
-              <a
-                :href="'/post/' + post.number"
+              <router-link
+                :to="'/post/' + post.id"
                 class="has-link-black-ter is-size-6"
-                >{{ post.title }}</a
-              >
+                >{{ post.title }}
+              </router-link>
               <div class="level article-meta is-mobile">
                 <div class="level-left">
                   <div class="level-item is-size-7 is-uppercase"></div>

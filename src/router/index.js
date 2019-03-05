@@ -8,6 +8,7 @@ import IndexPage from '../views/index.vue'
 import PostPage from '../views/post.vue'
 import TagPage from '../views/tag.vue'
 import TagsPage from '../views/tags.vue'
+import ArchivesPage from '../views/archives.vue'
 
 Vue.use(VueRouter)
 
@@ -25,14 +26,20 @@ export const routes = [
   {
     path: '/tag/:tag',
     component: TagPage,
-    props: true,
+    // props: true,
     name: 'tag'
   },
   {
     path: '/tags',
     component: TagsPage,
-    props: true,
+    // props: true,
     name: 'tags'
+  },
+  {
+    path: '/archives/:year/:month',
+    component: ArchivesPage,
+    // props: true,
+    name: 'archives'
   },
   {
     path: '*',
