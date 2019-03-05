@@ -38,7 +38,7 @@
               class="tag is-info has-mr-7 "
               v-for="tag in post.labels"
               :key="tag.id"
-              :to="{ name: 'tags', params: { tag: tag.name } }"
+              :to="{ name: 'tag', params: { tag: tag.name } }"
               >{{ tag.name }}
             </router-link>
           </div>

@@ -1,42 +1,16 @@
 <template>
-  <div class="tags-page">
-    <div class="card">
-      <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-          <ul>
-            <li><a href="/tags">Tags</a></li>
-            <li class="is-active">
-              <a href="#" aria-current="page">{{ tag }}</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-    <Post
-      v-for="post in posts"
-      :key="post.id"
-      :index="true"
-      :post="post"
-    ></Post>
-  </div>
+  <div class="tags-page"><Tag :tags="tags"></Tag></div>
 </template>
 
 <script>
-import Post from '../components/post.vue'
-// import {mapG}
+import Tag from '../components/tag.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: {
-    Post
-  },
-  props: {
-    tag: String
+    Tag
   },
   computed: {
-    posts() {
-      return this.$store.getters.posts.filter(post =>
-        post.labels.find(tag => tag.name === this.tag)
-      )
-    }
+    ...mapGetters(['tags'])
   }
 }
 </script>

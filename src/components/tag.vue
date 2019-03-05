@@ -5,12 +5,15 @@
         <h3 class="menu-label">TAGS</h3>
         <div class="field is-grouped is-grouped-multiline">
           <div class="control" v-for="tag in tags" :key="tag.name">
-            <a class="tags has-addons" href="javascript:;">
+            <router-link
+              class="tags has-addons"
+              :to="{ name: 'tag', params: { tag: tag.name } }"
+            >
               <span class="tag" :style="{ color: tag.color }">{{
                 tag.name
               }}</span>
               <span class="tag is-grey">{{ tag.count }}</span>
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
