@@ -6,6 +6,7 @@ import { initApp } from '../utils/index'
 
 import IndexPage from '../views/index.vue'
 import PostPage from '../views/post.vue'
+import TagsPage from '../views/tags.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,12 @@ export const routes = [
     component: PostPage,
     props: true,
     name: 'post'
+  },
+  {
+    path: '/tag/:tag',
+    component: TagsPage,
+    props: true,
+    name: 'tags'
   },
   {
     path: '*',

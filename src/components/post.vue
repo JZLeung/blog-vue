@@ -34,20 +34,24 @@
         <div class="level-start">
           <div class="level-item">
             <span class="is-size-6 has-text-grey has-mr-7">#</span>
-            <a
-              class="has-link-grey -link"
+            <router-link
+              class="tag is-info has-mr-7 "
               v-for="tag in post.labels"
               :key="tag.id"
-              href="/hexo-theme-icarus/tags/Getting-Started/"
+              :to="{ name: 'tags', params: { tag: tag.name } }"
               >{{ tag.name }}
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
       <div class="level is-mobile" v-if="index">
         <div class="level-start">
           <div class="level-item">
-            <a class="button is-size-7 is-light" href="">MORE</a>
+            <router-link
+              class="button is-size-7 is-light"
+              :to="{ name: 'post', params: { id: post.id } }"
+              >MORE</router-link
+            >
           </div>
         </div>
       </div>
